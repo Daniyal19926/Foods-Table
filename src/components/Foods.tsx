@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getFoods } from "../services/fakeFoodService";
 import Favourite from "./Favourite";
+import Paginatioin from "./pagination";
 export default function Foods() {
   const [foods, setFoods] = useState(getFoods());
   function handleDelete(id: string) {
@@ -57,6 +58,7 @@ export default function Foods() {
           ))}
         </tbody>
       </table>
+      <Paginatioin />
     </div>
   );
 }
