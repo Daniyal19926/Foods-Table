@@ -1,3 +1,5 @@
+import { range } from "../services/utils";
+
 interface Props {
   totalCount: number;
   pageSize: number;
@@ -20,6 +22,7 @@ function Paginatioin({
       <ul className="pagination">
         {pages.map((page) => (
           <li
+            key={page}
             onClick={() => onPageSelect(page)}
             className={`page-item ${page === selectedPage ? `active` : ``} `}
           >
@@ -32,12 +35,5 @@ function Paginatioin({
     </nav>
   );
 }
-function range(startNumber: number, endNumber: number): number[] {
-  let array: number[] = [];
 
-  for (let count = startNumber; count <= endNumber; count++) {
-    array.push(count);
-  }
-  return array;
-}
 export default Paginatioin;
