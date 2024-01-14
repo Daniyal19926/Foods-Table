@@ -4,6 +4,7 @@ import Favourite from "./Favourite";
 import Paginatioin from "./pagination";
 export default function Foods() {
   const [foods, setFoods] = useState(getFoods());
+  const [selectedPage, setSelectedPage] = useState(1);
   function handleDelete(id: string) {
     const newFoods = foods.filter((food) => food._id !== id);
     setFoods(newFoods);
@@ -58,7 +59,12 @@ export default function Foods() {
           ))}
         </tbody>
       </table>
-      <Paginatioin />
+      <Paginatioin
+        totalCount={foods.length}
+        pageSize={4}
+        selectedPage={selectedPage}
+        onPageSelect={setSelectedPage}
+      />
     </div>
   );
 }
