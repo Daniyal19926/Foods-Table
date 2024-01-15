@@ -13,7 +13,7 @@ export default function Foods() {
   const [foods, setFoods] = useState(getFoods());
   const [selectedPage, setSelectedPage] = useState(1);
 
-  const [SelectedCategory, setSelectedCategory] =
+  const [selectedCategory, setSelectedCategory] =
     useState<Category>(DEFAULT_CATEGORY);
 
   function handleDelete(id: string) {
@@ -30,21 +30,31 @@ export default function Foods() {
     });
     setFoods(newFoods);
   }
+
+  function handleCategorySelect(category: Category) {
+    setSelectedCategory(category);
+    setSelectedPage(1);
+  }
+
   if (foods.length === 0) return <p>There are no foods in the database.</p>;
 
-  const paginatedFoods = paginate(foods, PAGE_SIZE, selectedPage);
+  const filteredFoods = selectedCategory._id
+    ? foods.filter((food) => food.category._id === selectedCategory._id)
+    : foods;
+
+  const paginatedFoods = paginate(filteredFoods, PAGE_SIZE, selectedPage);
 
   return (
     <div className="row container pt-3">
       <div className="col-3">
         <ListGroup
           items={[DEFAULT_CATEGORY, ...getCategories()]}
-          selectedItem={SelectedCategory}
-          onItemSelect={setSelectedCategory}
+          selectedItem={selectedCategory}
+          onItemSelect={handleCategorySelect}
         />
       </div>
       <div className="col">
-        <p>There are {foods.length} foods in the database. </p>
+        <p>There are {filteredFoods.length} foods in the database. </p>
         <table className="table">
           <thead>
             <tr>
@@ -82,7 +92,7 @@ export default function Foods() {
           </tbody>
         </table>
         <Paginatioin
-          totalCount={foods.length}
+          totalCount={filteredFoods.length}
           pageSize={PAGE_SIZE}
           selectedPage={selectedPage}
           onPageSelect={setSelectedPage}
