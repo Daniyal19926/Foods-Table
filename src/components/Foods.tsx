@@ -1,4 +1,5 @@
 import { useState } from "react";
+import _ from "lodash";
 import { getFoods } from "../services/fakeFoodService";
 import Favourite from "./Favourite";
 import Paginatioin from "./pagination";
@@ -15,6 +16,7 @@ export default function Foods() {
 
   const [selectedCategory, setSelectedCategory] =
     useState<Category>(DEFAULT_CATEGORY);
+  const [sortColumn, setSortColumn] = useState("name");
 
   function handleDelete(id: string) {
     const newFoods = foods.filter((food) => food._id !== id);
@@ -41,8 +43,9 @@ export default function Foods() {
   const filteredFoods = selectedCategory._id
     ? foods.filter((food) => food.category._id === selectedCategory._id)
     : foods;
+  const sortedFoods = _.orderBy(filteredFoods, sortColumn, "asc");
 
-  const paginatedFoods = paginate(filteredFoods, PAGE_SIZE, selectedPage);
+  const paginatedFoods = paginate(sortedFoods, PAGE_SIZE, selectedPage);
 
   return (
     <div className="row container pt-3">
@@ -58,10 +61,18 @@ export default function Foods() {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Price</th>
-              <th scope="col">Stock</th>
+              <th scope="col" onClick={() => setSortColumn("name")}>
+                Name
+              </th>
+              <th scope="col" onClick={() => setSortColumn("category.name")}>
+                Category
+              </th>
+              <th scope="col" onClick={() => setSortColumn("price")}>
+                Price
+              </th>
+              <th scope="col" onClick={() => setSortColumn("numberInStock")}>
+                Stock
+              </th>
               <th />
               <th />
             </tr>
