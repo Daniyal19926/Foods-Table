@@ -7,7 +7,7 @@ interface Props {
   selectedPage: number;
 }
 
-function Paginatioin({
+function Pagination({
   totalCount,
   pageSize,
   selectedPage,
@@ -36,4 +36,4 @@ function Paginatioin({
   );
 }
 
-export default Paginatioin;
+export default Pagination;
