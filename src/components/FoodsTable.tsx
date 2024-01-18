@@ -27,7 +27,12 @@ function FoodsTable({ foods, sortColumn, onSort, onDelete, onFavour }: Props) {
   return (
     <table className="table">
       <TableHeader onSort={onSort} sortColumn={sortColumn} columns={columns} />
-      <TableBody foods={foods} onDelete={onDelete} onFavour={onFavour} />
+      <TableBody
+        columns={columns}
+        foods={foods}
+        onDelete={onDelete}
+        onFavour={onFavour}
+      />
     </table>
   );
 }
