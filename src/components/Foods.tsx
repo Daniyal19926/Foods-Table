@@ -4,13 +4,9 @@ import { getFoods } from "../services/fakeFoodService";
 
 import { Category, getCategories } from "../services/fakeCategoryService";
 import { paginate } from "../services/utils";
-import FoodsTable from "./FoodsTable";
+import FoodsTable, { SortColumn } from "./FoodsTable";
 import ListGroup from "./ListGroup";
 import Pagination from "./Pagination";
-interface SortColumn {
-  path: string;
-  order: "asc" | "desc";
-}
 
 const DEFAULT_CATEGORY: Category = { _id: "", name: "All Categories" };
 const DEFAULT_SORT_COLUMN: SortColumn = { path: "name", order: "asc" };
@@ -44,15 +40,6 @@ export default function Foods() {
     setSelectedCategory(category);
     setSelectedPage(1);
   }
-  function handleSort(path: string) {
-    if (path === sortColumn.path) {
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
-    setSortColumn({ ...sortColumn });
-  }
 
   if (foods.length === 0) return <p>There are no foods in the database.</p>;
 
@@ -79,10 +66,11 @@ export default function Foods() {
       <div className="col">
         <p>There are {filteredFoods.length} foods in the database. </p>
         <FoodsTable
+          foods={paginatedFoods}
+          sortColumn={sortColumn}
           onDelete={handleDelete}
           onFavour={handleFavour}
-          foods={paginatedFoods}
-          onSort={handleSort}
+          onSort={setSortColumn}
         />
         <Pagination
           totalCount={filteredFoods.length}

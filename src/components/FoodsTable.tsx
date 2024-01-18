@@ -1,26 +1,43 @@
 import { Food } from "../services/fakeFoodService";
 import Favourite from "./Favourite";
+export interface SortColumn {
+  path: string;
+  order: "asc" | "desc";
+}
+
 interface Props {
   foods: Food[];
-  onSort(path: string): void;
+  sortColumn: SortColumn;
+  onSort(sortColumn: SortColumn): void;
   onDelete(id: string): void;
   onFavour(id: string): void;
 }
-function FoodsTable({ foods, onSort, onDelete, onFavour }: Props) {
+
+function FoodsTable({ foods, sortColumn, onSort, onDelete, onFavour }: Props) {
+  function handleSort(path: string) {
+    if (path === sortColumn.path) {
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+    } else {
+      sortColumn.path = path;
+      sortColumn.order = "asc";
+    }
+    onSort({ ...sortColumn });
+  }
+
   return (
     <table className="table">
       <thead>
         <tr>
-          <th scope="col" onClick={() => onSort("name")}>
+          <th scope="col" onClick={() => handleSort("name")}>
             Name
           </th>
-          <th scope="col" onClick={() => onSort("category.name")}>
+          <th scope="col" onClick={() => handleSort("category.name")}>
             Category
           </th>
-          <th scope="col" onClick={() => onSort("price")}>
+          <th scope="col" onClick={() => handleSort("price")}>
             Price
           </th>
-          <th scope="col" onClick={() => onSort("numberInStock")}>
+          <th scope="col" onClick={() => handleSort("numberInStock")}>
             Stock
           </th>
           <th />
