@@ -1,4 +1,5 @@
 import { Food } from "../services/fakeFoodService";
+import Favourite from "./Favourite";
 
 import TableBody from "./TableBody";
 import TableHeader, { Column } from "./TableHeader";
@@ -21,8 +22,23 @@ function FoodsTable({ foods, sortColumn, onSort, onDelete, onFavour }: Props) {
     { path: "category.name", label: "Category" },
     { path: "price", label: "Price" },
     { path: "numberInStock", label: "Stock" },
-    { key: "favourite" },
-    { key: "delete" },
+    {
+      key: "favourite",
+      content: (food) => (
+        <Favourite
+          isFavoured={Boolean(food.isFavoured)}
+          onFavor={() => onFavour(food._id)}
+        />
+      ),
+    },
+    {
+      key: "delete",
+      content: (food) => (
+        <button className="btn btn-danger" onClick={() => onDelete(food._id)}>
+          Delete
+        </button>
+      ),
+    },
   ];
   return (
     <table className="table">

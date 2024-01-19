@@ -1,3 +1,4 @@
+import { Food } from "../services/fakeFoodService";
 import { SortColumn } from "./FoodsTable";
 
 interface Props {
@@ -12,6 +13,7 @@ interface TextColumn {
 }
 interface ContentColumn {
   key: string;
+  content(food: Food): JSX.Element;
 }
 
 export type Column = TextColumn | ContentColumn;
