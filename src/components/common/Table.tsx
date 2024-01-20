@@ -1,6 +1,5 @@
-import { Column, Id, SortColumn } from "../services/types";
-import TableBody from "./TableBody";
-import TableHeader from "./TableHeader";
+import { TableHeader, Tablebody } from ".";
+import { Column, Id, SortColumn } from "../../services/types";
 
 interface Props<T extends Id> {
   items: T[];
@@ -13,7 +12,7 @@ function Table<T extends Id>({ items, columns, sortColumn, onSort }: Props<T>) {
   return (
     <table className="table">
       <TableHeader onSort={onSort} sortColumn={sortColumn} columns={columns} />
-      <TableBody columns={columns} items={items} />
+      <Tablebody columns={columns} items={items} />
     </table>
   );
 }
