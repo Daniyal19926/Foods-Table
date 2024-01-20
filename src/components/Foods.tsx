@@ -5,8 +5,8 @@ import { getFoods } from "../services/fakeFoodService";
 import { getCategories } from "../services/fakeCategoryService";
 import { paginate } from "../services/utils";
 import FoodsTable from "./FoodsTable";
-import ListGroup from "./ListGroup";
-import Pagination from "./Pagination";
+import ListGroup from "./common/ListGroup";
+import Pagination from "./common/Pagination";
 import { Category, SortColumn } from "../services/types";
 
 const DEFAULT_CATEGORY: Category = { _id: "", name: "All Categories" };
