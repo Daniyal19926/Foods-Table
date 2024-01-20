@@ -35,7 +35,7 @@ function TableHeader<T>({ onSort, sortColumn, columns }: Props<T>) {
 
     return <i className="fa-solid fa-sort-up" />;
   }
-  console.log(renderSortIcon);
+
   return (
     <thead>
       <tr>
