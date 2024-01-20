@@ -2,11 +2,12 @@ import { useState } from "react";
 import _ from "lodash";
 import { getFoods } from "../services/fakeFoodService";
 
-import { Category, getCategories } from "../services/fakeCategoryService";
+import { getCategories } from "../services/fakeCategoryService";
 import { paginate } from "../services/utils";
-import FoodsTable, { SortColumn } from "./FoodsTable";
+import FoodsTable from "./FoodsTable";
 import ListGroup from "./ListGroup";
 import Pagination from "./Pagination";
+import { Category, SortColumn } from "../services/types";
 
 const DEFAULT_CATEGORY: Category = { _id: "", name: "All Categories" };
 const DEFAULT_SORT_COLUMN: SortColumn = { path: "name", order: "asc" };
