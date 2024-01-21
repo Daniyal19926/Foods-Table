@@ -1,4 +1,4 @@
-import { range } from "../../services/utils";
+import { range } from "@utils";
 
 interface Props {
   totalCount: number;

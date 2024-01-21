@@ -1,5 +1,5 @@
-import Foods from "./components/Foods";
-import "./services/App.css";
+import { Foods } from "@components";
+import "@services/App.css";
 function App() {
   return <Foods />;
 }
