@@ -1,19 +1,22 @@
 import App from "@App";
-import { CustomersPage, OrdersPage } from "@pages";
+import { CustomersPage, FoodsPage, OrdersPage } from "@pages";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-  },
-  {
-    path: "/customers",
-    element: <CustomersPage />,
-  },
-  {
-    path: "/orders",
-    element: <OrdersPage />,
+    children: [
+      { path: "/foods", element: <FoodsPage /> },
+      {
+        path: "/customers",
+        element: <CustomersPage />,
+      },
+      {
+        path: "/orders",
+        element: <OrdersPage />,
+      },
+    ],
   },
 ]);
 export default router;
