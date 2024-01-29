@@ -1,6 +1,6 @@
-import { Foods } from "@components";
+import { FoodsPage } from "@pages";
 import "@services/App.css";
 function App() {
-  return <Foods />;
+  return <FoodsPage />;
 }
 export default App;

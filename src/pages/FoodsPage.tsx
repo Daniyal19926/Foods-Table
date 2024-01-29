@@ -12,7 +12,7 @@ const DEFAULT_CATEGORY: Category = { _id: "", name: "All Categories" };
 const DEFAULT_SORT_COLUMN: SortColumn = { path: "name", order: "asc" };
 
 const PAGE_SIZE = 4;
-export default function Foods() {
+export default function FoodsPage() {
   const [foods, setFoods] = useState(getFoods());
   const [selectedPage, setSelectedPage] = useState(1);
 
