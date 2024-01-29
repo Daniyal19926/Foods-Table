@@ -1,5 +1,7 @@
 import App from "@App";
-import { CustomersPage, FoodsPage, OrdersPage } from "@pages";
+
+import { CustomersPage, FoodFormPage, FoodsPage, OrdersPage } from "@pages";
+
 import NotFoundPage from "@pages/NotfoundPage";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -10,6 +12,10 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       { path: "/foods", element: <FoodsPage /> },
+      {
+        path: "/foods/:id",
+        element: <FoodFormPage />,
+      },
       {
         path: "/customers",
         element: <CustomersPage />,
