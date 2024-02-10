@@ -1,6 +1,12 @@
 import App from "@App";
 
-import { CustomersPage, FoodFormPage, FoodsPage, OrdersPage } from "@pages";
+import {
+  CustomersPage,
+  FoodFormPage,
+  FoodsPage,
+  LoginPage,
+  OrdersPage,
+} from "@pages";
 
 import NotFoundPage from "@pages/NotfoundPage";
 import { createBrowserRouter } from "react-router-dom";
@@ -26,5 +32,6 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/login", element: <LoginPage /> },
 ]);
 export default router;

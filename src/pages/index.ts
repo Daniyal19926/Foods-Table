@@ -5,3 +5,4 @@ export { default as OrdersPage } from "./OrdersPage";
 export { default as NotFoundePage } from "./NotfoundPage";
 
 export { default as FoodFormPage } from "./FoodFormPage";
+export { default as LoginPage } from "./LoginPage";
