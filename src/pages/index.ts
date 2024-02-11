@@ -6,3 +6,4 @@ export { default as NotFoundePage } from "./NotfoundPage";
 
 export { default as FoodFormPage } from "./FoodFormPage";
 export { default as LoginPage } from "./LoginPage";
+export { default as RegisterPage } from "./RegisterPage";

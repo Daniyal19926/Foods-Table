@@ -6,6 +6,7 @@ import {
   FoodsPage,
   LoginPage,
   OrdersPage,
+  RegisterPage,
 } from "@pages";
 
 import NotFoundPage from "@pages/NotfoundPage";
@@ -33,5 +34,6 @@ const router = createBrowserRouter([
     ],
   },
   { path: "/login", element: <LoginPage /> },
+  { path: "/register", element: <RegisterPage /> },
 ]);
 export default router;
