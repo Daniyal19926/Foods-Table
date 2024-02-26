@@ -4,7 +4,7 @@ function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/foods">
+        <Link className="navbar-brand" to="/">
           Intensive Foods
         </Link>
         <button

@@ -13,6 +13,7 @@ interface Props {
 function FoodsTable({ foods, sortColumn, onSort, onDelete, onFavour }: Props) {
   const columns: Column<Food>[] = [
     {
+      key: "name",
       path: "name",
       label: "Name",
 
