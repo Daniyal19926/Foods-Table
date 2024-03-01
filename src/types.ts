@@ -1,5 +1,5 @@
 export interface Food {
-  _id: string;
+  id: string;
   name: string;
   category: Category;
   numberInStock: number;
@@ -7,12 +7,12 @@ export interface Food {
   isFavoured?: boolean;
 }
 export interface Category {
-  _id: string;
+  id: string;
   name: string;
 }
 
 export interface Id {
-  _id: string;
+  id: string;
 }
 
 export interface SortColumn {

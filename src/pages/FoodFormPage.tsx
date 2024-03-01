@@ -2,8 +2,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { getCategories, saveFood } from "@services";
+import { getFood, saveFood } from "@services";
+import { useEffect } from "react";
+import { Food } from "@types";
+import { useCategories } from "@hooks";
 const schema = z.object({
+  id: z.string().optional(),
   categoryId: z.string().min(1, { message: "You must select a category" }),
   name: z.string().min(1, { message: "Name is required" }),
   numberInStock: z
@@ -19,9 +23,12 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 function FoodFormPage() {
-  const navigate = useNavigate();
   const { id } = useParams();
+  const categories = useCategories();
+  const navigate = useNavigate();
+
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors, isValid },
@@ -30,9 +37,30 @@ function FoodFormPage() {
     mode: "onChange",
   });
   //const navigate = useNavigate();
-  function onSubmit(data: FormData) {
+
+  useEffect(() => {
+    async function fetch() {
+      if (!id || id === "new") return;
+      const { data: food } = await getFood(id);
+      if (!food) return navigate("/not-found");
+
+      reset(mapToFormData(food));
+    }
+    fetch();
+  }, []);
+  function mapToFormData(food: Food): FormData {
+    return {
+      id: food.id,
+      name: food.name,
+      categoryId: food.category.id,
+      numberInStock: food.numberInStock,
+      price: food.price,
+    };
+  }
+
+  async function onSubmit(data: FormData) {
     console.log("data", data);
-    saveFood(data);
+    await saveFood(data);
     navigate("/foods");
   }
 
@@ -59,8 +87,8 @@ function FoodFormPage() {
               className="form-select input-360"
             >
               <option />
-              {getCategories().map((category) => (
-                <option key={category._id} value={category._id}>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
               ))}

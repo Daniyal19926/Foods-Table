@@ -1,7 +1,2 @@
-export { getCategories } from "@services/fakeCategoryService";
-export {
-  deleteFood,
-  getFood,
-  getFoods,
-  saveFood,
-} from "@services/fakeFoodService";
+export { getCategories } from "@services/CategoryService";
+export { deleteFood, getFood, getFoods, saveFood } from "@services/FoodService";

@@ -6,16 +6,18 @@ import { paginate } from "@utils";
 import { Category, SortColumn } from "@types";
 import { ListGroup, Pagination, SearchBox } from "@components/common";
 import { FoodsTable } from "@components";
-import { deleteFood, getCategories, getFoods } from "@services";
+import { deleteFood } from "@services";
 import { Link } from "react-router-dom";
+import { useCategories, useFoods } from "@hooks";
 
-const DEFAULT_CATEGORY: Category = { _id: "", name: "All Categories" };
+const DEFAULT_CATEGORY: Category = { id: "", name: "All Categories" };
 const DEFAULT_SORT_COLUMN: SortColumn = { path: "name", order: "asc" };
 
 const PAGE_SIZE = 4;
 export default function FoodsPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [foods, setFoods] = useState(getFoods());
+  const categories = useCategories();
+  const { foods, setFoods } = useFoods();
   const [selectedPage, setSelectedPage] = useState(1);
 
   const [selectedCategory, setSelectedCategory] =
@@ -23,15 +25,15 @@ export default function FoodsPage() {
 
   const [sortColumn, setSortColumn] = useState(DEFAULT_SORT_COLUMN);
 
-  function handleDelete(id: string) {
-    const newFoods = foods.filter((food) => food._id !== id);
+  async function handleDelete(id: string) {
+    const newFoods = foods.filter((food) => food.id !== id);
     setFoods(newFoods);
-    deleteFood(id);
+    await deleteFood(id);
   }
 
   function handleFavour(id: string) {
     const newFoods = foods.map((food) => {
-      if (food._id === id) {
+      if (food.id === id) {
         food.isFavoured = !food.isFavoured;
       }
       return food;
@@ -50,8 +52,8 @@ export default function FoodsPage() {
   }
   if (foods.length === 0) return <p>There are no foods in the database.</p>;
 
-  //const filteredFoods = selectedCategory._id
-  //  ? foods.filter((food) => food.category._id === selectedCategory._id)
+  //const filteredFoods = selectedCategory.id
+  //  ? foods.filter((food) => food.category.id === selectedCategory.id)
   //: foods;
   let filteredFoods = foods;
 
@@ -59,9 +61,9 @@ export default function FoodsPage() {
     filteredFoods = foods.filter((food) =>
       food.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  } else if (selectedCategory._id) {
+  } else if (selectedCategory.id) {
     filteredFoods = foods.filter(
-      (food) => food.category._id === selectedCategory._id
+      (food) => food.category.id === selectedCategory.id
     );
   }
   const sortedFoods = _.orderBy(
@@ -76,7 +78,7 @@ export default function FoodsPage() {
     <div className="row container pt-3">
       <div className="col-3">
         <ListGroup
-          items={[DEFAULT_CATEGORY, ...getCategories()]}
+          items={[DEFAULT_CATEGORY, ...categories]}
           selectedItem={selectedCategory}
           onItemSelect={handleCategorySelect}
         />

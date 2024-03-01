@@ -17,7 +17,7 @@ function FoodsTable({ foods, sortColumn, onSort, onDelete, onFavour }: Props) {
       path: "name",
       label: "Name",
 
-      content: (food) => <Link to={`/foods/${food._id}`}>{food.name}</Link>,
+      content: (food) => <Link to={`/foods/${food.id}`}>{food.name}</Link>,
     },
 
     { path: "category.name", label: "Category" },
@@ -28,14 +28,14 @@ function FoodsTable({ foods, sortColumn, onSort, onDelete, onFavour }: Props) {
       content: (food) => (
         <Favourite
           isFavoured={Boolean(food.isFavoured)}
-          onFavor={() => onFavour(food._id)}
+          onFavor={() => onFavour(food.id)}
         />
       ),
     },
     {
       key: "delete",
       content: (food) => (
-        <button className="btn btn-danger" onClick={() => onDelete(food._id)}>
+        <button className="btn btn-danger" onClick={() => onDelete(food.id)}>
           Delete
         </button>
       ),
