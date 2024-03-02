@@ -1,4 +1,5 @@
 import App from "@App";
+import Logout from "@components/common/Logout";
 
 import {
   CustomersPage,
@@ -34,6 +35,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/logout", element: <Logout /> },
+
   { path: "/login", element: <LoginPage /> },
   { path: "/register", element: <RegisterPage /> },
 ]);
