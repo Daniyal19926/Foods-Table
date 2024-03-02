@@ -1,6 +1,15 @@
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import { jwtDecode } from "jwt-decode";
+import { User } from "@types";
 function NavBar() {
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    const user = jwtDecode<User>(token);
+    setUser(user);
+  }, []);
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -35,16 +44,34 @@ function NavBar() {
                 Orders
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
-                Login
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/register">
-                Register
-              </NavLink>
-            </li>
+            {user && (
+              <>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/profile">
+                    {user.name}{" "}
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/logout">
+                    Logout
+                  </NavLink>
+                </li>
+              </>
+            )}
+            {!user && (
+              <>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/login">
+                    Login
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/register">
+                    Register
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
