@@ -21,8 +21,7 @@ function LoginPage() {
     console.log("submitted", data);
 
     try {
-      const { data: jwt } = await auth.login(data);
-      localStorage.setItem("token", jwt);
+      await auth.login(data);
       navigate("/foods");
     } catch (error: any) {
       if (error.response.status === 400) {

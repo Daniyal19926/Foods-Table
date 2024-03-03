@@ -26,9 +26,7 @@ function RegisterPage() {
 
   async function onSubmit(data: FormData) {
     try {
-      const { headers } = await user.register(data);
-      const token = headers["x-auth-token"];
-      localStorage.setItem("token", token);
+      await user.register(data);
 
       navigate("/foods");
     } catch (error: any) {
