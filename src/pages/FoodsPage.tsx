@@ -6,7 +6,7 @@ import { paginate } from "@utils";
 import { Category, SortColumn } from "@types";
 import { ListGroup, Pagination, SearchBox } from "@components/common";
 import { FoodsTable } from "@components";
-import { deleteFood } from "@services";
+import { auth, deleteFood } from "@services";
 import { Link } from "react-router-dom";
 import { useCategories, useFoods } from "@hooks";
 
@@ -24,6 +24,7 @@ export default function FoodsPage() {
     useState<Category>(DEFAULT_CATEGORY);
 
   const [sortColumn, setSortColumn] = useState(DEFAULT_SORT_COLUMN);
+  const user = auth.getCurrentUser();
 
   async function handleDelete(id: string) {
     const newFoods = foods.filter((food) => food.id !== id);
@@ -84,9 +85,11 @@ export default function FoodsPage() {
         />
       </div>
       <div className="col">
-        <Link to="/foods/new" className="btn btn-primary mb-2">
-          New Food
-        </Link>
+        {user && (
+          <Link to="/foods/new" className="btn btn-primary mb-2">
+            New Food
+          </Link>
+        )}
         <p>There are {filteredFoods.length} foods in the database. </p>
         <SearchBox value={searchQuery} onChange={handleSearch} />
 

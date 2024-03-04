@@ -36,7 +36,6 @@ function FoodFormPage() {
     resolver: zodResolver(schema),
     mode: "onChange",
   });
-  //const navigate = useNavigate();
 
   useEffect(() => {
     async function fetch() {
