@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { auth } from "@services";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 const schema = z.object({
   username: z.string().min(1, "Username is required"),
   password: z.string().min(1, "Password is required"),
@@ -17,6 +17,7 @@ function LoginPage() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   const navigate = useNavigate();
   const { state: fromUrl } = useLocation();
+  const user = auth.getCurrentUser();
   async function onSubmit(data: FormData) {
     console.log("submitted", data);
 
@@ -29,6 +30,9 @@ function LoginPage() {
       }
     }
   }
+
+  if (user) return <Navigate to="/foods" />;
+
   return (
     <div className="vh-100 d-grid justify-content-center align-content-center">
       <h1 className="mb-4 text-center">Login Page</h1>
